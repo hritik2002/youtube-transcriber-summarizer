@@ -23,9 +23,7 @@ class AudioTranscriber:
         os.rename(out_file, new_file)
         file_name = os.path.basename(new_file)
         file_path = os.path.join(download_path, file_name)
-        # raw = repr(file_path)[1:-1]
         return file_path
-        # return raw
 
     def transcribe_audio(self, file):
         transcription = openai.Audio.transcribe("whisper-1", file)
