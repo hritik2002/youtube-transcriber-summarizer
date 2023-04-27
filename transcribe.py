@@ -2,12 +2,13 @@ import os
 from pytube import YouTube
 import openai
 
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+
 
 class AudioTranscriber:
     def __init__(self, url, audio_path):
         self.url = url
         self.audio_path = audio_path
-        openai.api_key = 'your api key'
 
     def download_audio(self):
         yt = YouTube(self.url)
@@ -45,9 +46,59 @@ class AudioTranscriber:
             print("Error occurred: ", e)
             return "cannot transcribe"
 
+class Summarizer:
+    """
+    Summarizer class that uses OpenAI API to generate summaries
+    """
+    def __init__(self, content):
+        self.content = self.replace_non_alphanumeric(content);
+        self.max_tokens = 512
+        self.max_len = 7500
+
+    def replace_non_alphanumeric(self, string):
+        # Use regex to replace all non-alphanumeric characters with an empty space
+        return re.sub(r'[^a-zA-Z0-9]', ' ', string)
+
+
+    def summarize(self):
+        # Split text into chunks that are within the token limit
+        chunks = self.split_text(self.content);
+        summary = ""
+
+        # Generate summary for each chunk of text
+        for chunk in chunks:
+
+            prompt = chunk + "\nTl;dr"
+
+            # Generate summary using OpenAI API.
+            # Move to chat api.
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=prompt,
+                max_tokens=self.max_tokens,
+                n=1,
+                stop=None,
+                temperature=0.7,
+            )
+
+            generated_summary = response.choices[0].text.strip()
+            summary += generated_summary
+
+        return summary
+
+    def split_text(self, text):
+        chunks = []
+        for i in range(0, len(text), self.max_len):
+            chunks.append(text[i:i+self.max_len])
+        return chunks
+
 
 if __name__ == "__main__":
     # Test YouTube transcriber
     url = input("Enter YouTube URL: ")
-    transcriber = AudioTranscriber(url, "audios/")
-    print("\n\n", transcriber.transcribe());
+    transcriber = AudioTranscriber(url, "audios/");
+    transcribed_text = transcriber.transcribe();
+    print("\n\n", transcribed_text);
+    # Test summarizer
+    summary = Summarizer(transcribed_text).summarize();
+    print("\n\n", summary);
