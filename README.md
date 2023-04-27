@@ -2,7 +2,7 @@
 YouTube Transcriber is a Python script that automatically transcribes YouTube videos.
 This script uses the OpenAI API to generate a transcript for any public YouTube video.
 
-You can further get the summarised version of the transcription.
+You will further get the summarised version of the transcription.
 
 ## Advantages
 - Saves time: You don't have to watch the entire content of the video.
