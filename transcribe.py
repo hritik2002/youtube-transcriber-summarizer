@@ -47,7 +47,7 @@ class AudioTranscriber:
 
 
 if __name__ == "__main__":
-    # Test YouTube crawler
+    # Test YouTube transcriber
     url = input("Enter YouTube URL: ")
     transcriber = AudioTranscriber(url, "audios/")
     print("\n\n", transcriber.transcribe());
