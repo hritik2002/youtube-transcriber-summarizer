@@ -10,7 +10,7 @@ This script uses the OpenAI API to generate a transcript for any public YouTube 
 ## Usage
 - Clone the repository to your local machine.
 - Install the required packages by running pip install -r requirements.txt.
-- Obtain a OpenAI API key and add it in the class init function.
+- Obtain a OpenAI API key and add it as an environment variable named OPENAI_API_KEY.
 - Run the script by providing a valid YouTube video URL as an argument. For example: python youtube_transcriber.py https://www.youtube.com/watch?v=dQw4w9WgXcQ.
 
 ## Notes
