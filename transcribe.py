@@ -29,10 +29,7 @@ class AudioTranscriber:
 
     def transcribe_audio(self, file):
         transcription = openai.Audio.transcribe("whisper-1", file)
-        return transcription
-        # model = whisper.load_model("base", device='cpu')
-        # transcription = model.transcribe(self)
-        # return transcription["text"]
+        return transcription;
 
     def transcribe(self):
         try:
@@ -71,7 +68,6 @@ class Summarizer:
             prompt = chunk + "\nTl;dr"
 
             # Generate summary using OpenAI API.
-            # Move to chat api.
             response = openai.Completion.create(
                 engine="text-davinci-003",
                 prompt=prompt,
