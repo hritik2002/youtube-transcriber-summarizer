@@ -1,4 +1,4 @@
-# YouTube Transcriber
+# YouTube Transcriber/ Summarizer
 YouTube Transcriber is a Python script that automatically transcribes YouTube videos.
 This script uses the OpenAI API to generate a transcript for any public YouTube video.
 
